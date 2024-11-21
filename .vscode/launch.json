@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ComprayaApplication<compraya>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.compraya.compraya.ComprayaApplication",
+            "projectName": "compraya",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
