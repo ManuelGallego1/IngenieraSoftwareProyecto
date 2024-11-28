@@ -1,6 +1,0 @@
-package Repositories;
-
-interface IUserRepository {
-
-    
-}
