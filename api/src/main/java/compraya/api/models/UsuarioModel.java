@@ -79,5 +79,7 @@ public class UsuarioModel {
         this.celular = celular;
     }
 
+    
+
 
 }
