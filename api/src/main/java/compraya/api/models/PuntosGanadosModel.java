@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "PuntosGanados")
-public class PuntosGanados {
+public class PuntosGanadosModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class PuntosGanados {
     @JoinColumn(name = "id_puntos", nullable = false)
     private PuntosModel puntos;
 
-    public PuntosGanados() {
+    public PuntosGanadosModel() {
     }
 
-    public PuntosGanados(Long id, int cantidad_puntos, Date fecha_ganancia, String motivo, String referencia, PuntosModel puntos) {
+    public PuntosGanadosModel(Long id, int cantidad_puntos, Date fecha_ganancia, String motivo, String referencia, PuntosModel puntos) {
         this.id = id;
         this.cantidad_puntos = cantidad_puntos;
         this.fecha_ganancia = fecha_ganancia;
