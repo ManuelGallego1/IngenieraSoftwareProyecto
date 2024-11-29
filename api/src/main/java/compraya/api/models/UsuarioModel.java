@@ -18,17 +18,19 @@ public class UsuarioModel {
     private String email;
     private String contrasena;
     private String celular;
+    private String rol;
 
     public UsuarioModel() {
     }
 
-    public UsuarioModel(Long id, String nombre, String identificacion, String email, String contrasena, String celular) {
+    public UsuarioModel(Long id, String nombre, String identificacion, String email, String contrasena, String celular, String rol) {
         this.id = id;
         this.nombre = nombre;
         this.identificacion = identificacion;
         this.email = email;
         this.contrasena = contrasena;
         this.celular = celular;
+        this.rol = rol;
     }
 
     public Long getId() {
@@ -79,7 +81,11 @@ public class UsuarioModel {
         this.celular = celular;
     }
 
-    
+    public String getRol() {
+        return this.rol;
+    }
 
-
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
 }
