@@ -11,6 +11,7 @@
 * Agregar una nueva variable 
     - Nombre: MAVEN_HOME
     - Valor: El path donde esta la carpeta del maven ejemplo: C:\Users\Alejandro\apache-maven-3.9.9
+* Buscar el Path en variables de entorno y agregar al final %MAVEN_HOME%\bin
 * Reiniciar
 * Probar mvn --v 
 
