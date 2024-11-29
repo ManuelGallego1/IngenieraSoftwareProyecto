@@ -29,7 +29,7 @@ CREATE TABLE Productos (
     precio DECIMAL(10, 2) NOT NULL,
     imagen VARCHAR(255),
     categoria_id INT NOT NULL,
-    FOREIGN KEY (categoria_id) REFERENCES Categorias(id)
+    FOREIGN KEY (categoria_id) REFERENCES Categorias(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabla de Inventario
@@ -39,7 +39,7 @@ CREATE TABLE Inventario (
     salida INT NOT NULL,
     referencia_compra VARCHAR(255),
     producto_id INT NOT NULL,
-    FOREIGN KEY (producto_id) REFERENCES Productos(id)
+    FOREIGN KEY (producto_id) REFERENCES Productos(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabla de Carrito de Compras
@@ -49,7 +49,7 @@ CREATE TABLE CarritoCompras (
     cantidad INT NOT NULL,
     descuento DECIMAL(10, 2),
     total DECIMAL(10, 2) NOT NULL,
-    FOREIGN KEY (producto_id) REFERENCES Productos(id)
+    FOREIGN KEY (producto_id) REFERENCES Productos(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabla de Facturas
@@ -63,7 +63,7 @@ CREATE TABLE Facturas (
     estado VARCHAR(50) NOT NULL,
     id_cliente INT NOT NULL,
     id_metodo_pago INT NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES Usuarios(id)
+    FOREIGN KEY (id_cliente) REFERENCES Usuarios(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabla de Detalle de Factura
@@ -74,8 +74,8 @@ CREATE TABLE DetalleFactura (
     descuento DECIMAL(10, 2),
     id_producto INT NOT NULL,
     id_factura INT NOT NULL,
-    FOREIGN KEY (id_producto) REFERENCES Productos(id),
-    FOREIGN KEY (id_factura) REFERENCES Facturas(id)
+    FOREIGN KEY (id_producto) REFERENCES Productos(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_factura) REFERENCES Facturas(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabla de Puntos Redimidos
@@ -84,7 +84,7 @@ CREATE TABLE PuntosRedimidos (
     cantidad_puntos INT NOT NULL,
     fecha_redencion DATE NOT NULL,
     detalle_factura_id INT NOT NULL,
-    FOREIGN KEY (detalle_factura_id) REFERENCES DetalleFactura(id)
+    FOREIGN KEY (detalle_factura_id) REFERENCES DetalleFactura(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- Tabla de Puntos Ganados
