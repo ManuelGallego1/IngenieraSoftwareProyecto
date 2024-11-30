@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public class PuntosRedimidosModel {
     private int cantidadPuntos;
     private Date fechaRedencion;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "detalle_factura_id", nullable = false)
     private DetalleFacturaModel detalleFactura;
 

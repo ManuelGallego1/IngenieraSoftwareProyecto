@@ -1,12 +1,6 @@
 package compraya.api.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -16,28 +10,25 @@ public class PuntosGanadosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int cantidad_puntos;
-    private Date fecha_ganancia;
+
+    @Column(name = "cantidad_puntos", nullable = false)
+    private int cantidadPuntos;
+
+    @Column(name = "fecha_ganancia", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaGanancia;
+
+    @Column(name = "motivo")
     private String motivo;
+
+    @Column(name = "referencia")
     private String referencia;
 
     @ManyToOne
     @JoinColumn(name = "id_puntos", nullable = false)
     private PuntosModel puntos;
 
-    public PuntosGanadosModel() {
-    }
-
-    public PuntosGanadosModel(Long id, int cantidad_puntos, Date fecha_ganancia, String motivo, String referencia, PuntosModel puntos) {
-        this.id = id;
-        this.cantidad_puntos = cantidad_puntos;
-        this.fecha_ganancia = fecha_ganancia;
-        this.motivo = motivo;
-        this.referencia = referencia;
-        this.puntos = puntos;
-    }
-
-    // Getters and Setters
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -46,20 +37,20 @@ public class PuntosGanadosModel {
         this.id = id;
     }
 
-    public int getCantidad_puntos() {
-        return cantidad_puntos;
+    public int getCantidadPuntos() {
+        return cantidadPuntos;
     }
 
-    public void setCantidad_puntos(int cantidad_puntos) {
-        this.cantidad_puntos = cantidad_puntos;
+    public void setCantidadPuntos(int cantidadPuntos) {
+        this.cantidadPuntos = cantidadPuntos;
     }
 
-    public Date getFecha_ganancia() {
-        return fecha_ganancia;
+    public Date getFechaGanancia() {
+        return fechaGanancia;
     }
 
-    public void setFecha_ganancia(Date fecha_ganancia) {
-        this.fecha_ganancia = fecha_ganancia;
+    public void setFechaGanancia(Date fechaGanancia) {
+        this.fechaGanancia = fechaGanancia;
     }
 
     public String getMotivo() {
