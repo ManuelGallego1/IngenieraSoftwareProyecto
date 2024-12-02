@@ -36,9 +36,9 @@ public class DetalleFacturaService implements IDetalleFacturaService{
     @Override
     public ResponseEntity<?> getOne(Long id) {
         try {
-            Optional<DetalleFacturaModel> puntos = detalleFacturaRepository.findById(id);
-            if (puntos.isPresent()) {
-                return ResponseEntity.ok(puntos.get());
+            Optional<DetalleFacturaModel> factura = detalleFacturaRepository.findById(id);
+            if (factura.isPresent()) {
+                return ResponseEntity.ok(factura.get());
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Detalles de factura no encontrados.\"}");
             }
@@ -49,10 +49,10 @@ public class DetalleFacturaService implements IDetalleFacturaService{
     }
 
     @Override
-    public ResponseEntity<?> post(DetalleFacturaModel puntos) {
+    public ResponseEntity<?> post(DetalleFacturaModel factura) {
         try {
-            DetalleFacturaModel savedPuntos = detalleFacturaRepository.save(puntos);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedPuntos);
+            DetalleFacturaModel savedfactura = detalleFacturaRepository.save(factura);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedfactura);
         } catch (Exception e) {
             logger.error("Error al guardar los detalles de factura", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al guardar los detalles.\"}");
@@ -60,12 +60,12 @@ public class DetalleFacturaService implements IDetalleFacturaService{
     }
 
     @Override
-    public ResponseEntity<?> put(DetalleFacturaModel puntos, Long id) {
+    public ResponseEntity<?> put(DetalleFacturaModel factura, Long id) {
         if (detalleFacturaRepository.existsById(id)) {
-            puntos.setId(id);
+            factura.setId(id);
             try {
-                DetalleFacturaModel updatedPuntos = detalleFacturaRepository.save(puntos);
-                return ResponseEntity.ok(updatedPuntos);
+                DetalleFacturaModel updatedfactura = detalleFacturaRepository.save(factura);
+                return ResponseEntity.ok(updatedfactura);
             } catch (Exception e) {
                 logger.error("Error al actualizar los detalles de factura", e);
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al actualizar los detales de factura.\"}");

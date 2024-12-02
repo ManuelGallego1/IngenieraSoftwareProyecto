@@ -29,31 +29,31 @@ public class FacturaService implements IFacturaService {
 
     @Override
     public ResponseEntity<?> getOne(Long id) {
-        Optional<FacturaModel> usuario = facturaRepository.findById(id);
-        if (usuario.isPresent()) {
-            return ResponseEntity.ok(usuario.get());
+        Optional<FacturaModel> factura = facturaRepository.findById(id);
+        if (factura.isPresent()) {
+            return ResponseEntity.ok(factura.get());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Factura no encontrado.\"}");
         }
     }
 
     @Override
-    public ResponseEntity<?> post(FacturaModel usuario) {
+    public ResponseEntity<?> post(FacturaModel factura) {
         try {
-            FacturaModel savedUsuario = facturaRepository.save(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedUsuario);
+            FacturaModel savedfactura = facturaRepository.save(factura);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedfactura);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al guardar la factura.\"}");
         }
     }
 
     @Override
-    public ResponseEntity<?> put(FacturaModel usuario, Long id) {
+    public ResponseEntity<?> put(FacturaModel factura, Long id) {
         if (facturaRepository.existsById(id)) {
-            usuario.setId(id);
+            factura.setId(id);
             try {
-                FacturaModel updatedUsuario = facturaRepository.save(usuario);
-                return ResponseEntity.ok(updatedUsuario);
+                FacturaModel updatedfactura = facturaRepository.save(factura);
+                return ResponseEntity.ok(updatedfactura);
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al actualizar la factura.\"}");
             }

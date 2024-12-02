@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
-@RequestMapping("/detalle-factura")
+@RequestMapping("/detalle-facturas")
 public class DetalleFacturaController {
     
     private final DetalleFacturaService detalleFacturaService;
@@ -27,31 +27,31 @@ public class DetalleFacturaController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<?> getUsuarios() {
+    public ResponseEntity<?> getfacturas() {
         return detalleFacturaService.get();
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> createUsuario(@RequestBody DetalleFacturaModel usuario) {
-        return detalleFacturaService.post(usuario);
+    public ResponseEntity<?> createfactura(@RequestBody DetalleFacturaModel factura) {
+        return detalleFacturaService.post(factura);
     }
     
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> getUsuarioById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getfacturaById(@PathVariable("id") Long id) {
         return detalleFacturaService.getOne(id);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> updateUsuario(@RequestBody DetalleFacturaModel usuario, @PathVariable("id") Long id) {
-        return detalleFacturaService.put(usuario, id);
+    public ResponseEntity<?> updatefactura(@RequestBody DetalleFacturaModel factura, @PathVariable("id") Long id) {
+        return detalleFacturaService.put(factura, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> deleteUsuario(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletefactura(@PathVariable("id") Long id) {
         return detalleFacturaService.delete(id);
     }
     
