@@ -12,7 +12,7 @@ const UsuarioFormPage = ({ mode }) => {
         email: "",
         contrasena: "",
         celular: "",
-        rol: "cliente",
+        rol: "",
     });
 
     useEffect(() => {
