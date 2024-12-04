@@ -5,7 +5,6 @@ import compraya.api.interfaces.IInformeService;
 import compraya.api.models.InformeModel;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import compraya.api.repositories.IInformeRepository;
@@ -15,7 +14,6 @@ public class InformeService implements IInformeService {
 
     private final IInformeRepository informeRepository;
 
-    @Autowired
     public InformeService(IInformeRepository informeRepository) {
         this.informeRepository = informeRepository;
     }

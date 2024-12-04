@@ -1,58 +1,42 @@
 package compraya.api.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import compraya.api.facade.CarritoFacade;
 import compraya.api.models.CarritoModel;
-import compraya.api.services.CarritoService;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/carritos")
 public class CarritoController {
 
-    private final CarritoService carritoService;
+    private final CarritoFacade carritoFacade;
 
-    @Autowired
-    public CarritoController(CarritoService carritoService) {
-        this.carritoService = carritoService;
+    public CarritoController(CarritoFacade carritoFacade) {
+        this.carritoFacade = carritoFacade;
     }
 
     @GetMapping
-    @ResponseBody
     public ResponseEntity<?> getCarritos() {
-        return carritoService.get();
+        return carritoFacade.getCarritos();
     }
 
     @PostMapping
-    @ResponseBody
     public ResponseEntity<?> createCarrito(@RequestBody CarritoModel carrito) {
-        return carritoService.post(carrito);
+        return carritoFacade.createCarrito(carrito);
     }
-    
+
     @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<?> getCarritoById(@PathVariable("id") Long id) {
-        return carritoService.getOne(id);
+    public ResponseEntity<?> getCarritoById(@PathVariable Long id) {
+        return carritoFacade.getCarritoById(id);
     }
 
     @PutMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<?> updateCarrito(@RequestBody CarritoModel carrito, @PathVariable("id") Long id) {
-        return carritoService.put(carrito, id);
+    public ResponseEntity<?> updateCarrito(@RequestBody CarritoModel carrito, @PathVariable Long id) {
+        return carritoFacade.updateCarrito(carrito, id);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<?> deleteCarrito(@PathVariable("id") Long id) {
-        return carritoService.delete(id);
+    public ResponseEntity<?> deleteCarrito(@PathVariable Long id) {
+        return carritoFacade.deleteCarrito(id);
     }
 }
