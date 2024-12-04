@@ -1,57 +1,42 @@
 package compraya.api.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import compraya.api.facade.DetalleFacturaFacade;
 import compraya.api.models.DetalleFacturaModel;
-import compraya.api.services.DetalleFacturaService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/detalle-facturas")
+@RequestMapping("/detalles-factura")
 public class DetalleFacturaController {
-    
-    private final DetalleFacturaService detalleFacturaService;
 
-    public DetalleFacturaController(DetalleFacturaService detalleFacturaService) {
-        this.detalleFacturaService = detalleFacturaService;
+    private final DetalleFacturaFacade detalleFacturaFacade;
+
+    public DetalleFacturaController(DetalleFacturaFacade detalleFacturaFacade) {
+        this.detalleFacturaFacade = detalleFacturaFacade;
     }
 
     @GetMapping
-    @ResponseBody
-    public ResponseEntity<?> getfacturas() {
-        return detalleFacturaService.get();
+    public ResponseEntity<?> getDetallesFactura() {
+        return detalleFacturaFacade.getDetallesFactura();
     }
 
     @PostMapping
-    @ResponseBody
-    public ResponseEntity<?> createfactura(@RequestBody DetalleFacturaModel factura) {
-        return detalleFacturaService.post(factura);
+    public ResponseEntity<?> createDetalleFactura(@RequestBody DetalleFacturaModel detalleFactura) {
+        return detalleFacturaFacade.createDetalleFactura(detalleFactura);
     }
-    
+
     @GetMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<?> getfacturaById(@PathVariable("id") Long id) {
-        return detalleFacturaService.getOne(id);
+    public ResponseEntity<?> getDetalleFacturaById(@PathVariable Long id) {
+        return detalleFacturaFacade.getDetalleFacturaById(id);
     }
 
     @PutMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<?> updatefactura(@RequestBody DetalleFacturaModel factura, @PathVariable("id") Long id) {
-        return detalleFacturaService.put(factura, id);
+    public ResponseEntity<?> updateDetalleFactura(@RequestBody DetalleFacturaModel detalleFactura, @PathVariable Long id) {
+        return detalleFacturaFacade.updateDetalleFactura(detalleFactura, id);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseBody
-    public ResponseEntity<?> deletefactura(@PathVariable("id") Long id) {
-        return detalleFacturaService.delete(id);
+    public ResponseEntity<?> deleteDetalleFactura(@PathVariable Long id) {
+        return detalleFacturaFacade.deleteDetalleFactura(id);
     }
-    
 }
-

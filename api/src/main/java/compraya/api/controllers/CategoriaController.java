@@ -32,6 +32,7 @@ public class CategoriaController extends BaseController<CategoriaModel> {
         return categoriaService;
     }
 
+    //Fabricación pura
     public void createCategoria(CategoriaModel categoria) {
         if (validationService.validateCategoria(categoria)) {
             categoriaService.post(categoria);
