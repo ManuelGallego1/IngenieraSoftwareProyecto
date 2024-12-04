@@ -1,40 +1,37 @@
 package compraya.api.models;
-
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "Inventario")
+@Table(name = "inventario")
 public class InventarioModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "entrada")
     private int entrada;
+
+    @Column(name = "salida")
     private int salida;
-    private String referencia_compra;
-    
-    @OneToOne
-    @JoinColumn(name = "idProducto")
+
+    @Column(name = "referencia_compra")
+    private String referenciaCompra;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
     private ProductoModel producto;
 
-    public InventarioModel() {
-    }
-
-    public InventarioModel(Long id, int entrada, int salida, String referencia_compra, ProductoModel producto) {
-        this.id = id;
-        this.entrada = entrada;
-        this.salida = salida;
-        this.referencia_compra = referencia_compra;
-        this.producto = producto;
-    }
-
+    // Getters and Setters
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -42,7 +39,7 @@ public class InventarioModel {
     }
 
     public int getEntrada() {
-        return this.entrada;
+        return entrada;
     }
 
     public void setEntrada(int entrada) {
@@ -50,27 +47,26 @@ public class InventarioModel {
     }
 
     public int getSalida() {
-        return this.salida;
+        return salida;
     }
 
     public void setSalida(int salida) {
         this.salida = salida;
     }
 
-    public String getReferencia_compra() {
-        return this.referencia_compra;
+    public String getReferenciaCompra() {
+        return referenciaCompra;
     }
 
-    public void setReferencia_compra(String referencia_compra) {
-        this.referencia_compra = referencia_compra;
+    public void setReferenciaCompra(String referenciaCompra) {
+        this.referenciaCompra = referenciaCompra;
     }
 
     public ProductoModel getProducto() {
-        return this.producto;
+        return producto;
     }
 
     public void setProducto(ProductoModel producto) {
         this.producto = producto;
     }
-
 }

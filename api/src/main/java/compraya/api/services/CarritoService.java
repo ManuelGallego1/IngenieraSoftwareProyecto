@@ -2,12 +2,11 @@ package compraya.api.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-
+import compraya.api.factories.interfaces.ICarritoFactory;
+import compraya.api.factories.DefaultCarritoFactory;
 import compraya.api.interfaces.ICarritoService;
 import compraya.api.models.CarritoModel;
 import compraya.api.repositories.ICarritoRepository;
@@ -16,8 +15,8 @@ import compraya.api.repositories.ICarritoRepository;
 public class CarritoService implements ICarritoService {
 
     private final ICarritoRepository carritoRepository;
+    private final ICarritoFactory carritoFactory = new DefaultCarritoFactory();
 
-    @Autowired
     public CarritoService(ICarritoRepository carritoRepository) {
         this.carritoRepository = carritoRepository;
     }
@@ -39,9 +38,11 @@ public class CarritoService implements ICarritoService {
 
     @Override
     public ResponseEntity<?> post(CarritoModel carrito) {
+        CarritoModel newCarrito = carritoFactory.createCarrito();
+        newCarrito.setUsuario(carrito.getUsuario());
         try {
-            CarritoModel savedCarrito = carritoRepository.save(carrito);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedCarrito);
+            carritoRepository.save(newCarrito);
+            return ResponseEntity.ok("{\"message\": \"Carrito Creado.\"}");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al guardar el carrito.\"}");
         }

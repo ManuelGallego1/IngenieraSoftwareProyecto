@@ -1,45 +1,45 @@
 package compraya.api.controllers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import compraya.api.models.CategoriaModel;
-import compraya.api.services.CategoriaService;
-import java.util.ArrayList;
 
+import compraya.api.models.CategoriaModel;
+import compraya.api.validator.ValidationService;
+import compraya.api.notification.NotificationService;
+import compraya.api.log.ActivityLogService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import compraya.api.interfaces.ICrudService;
 
 @RestController
 @RequestMapping("/categorias")
-public class CategoriaController {
+public class CategoriaController extends BaseController<CategoriaModel> {
 
-    private final CategoriaService categoriaService;
+    private final ICrudService<CategoriaModel> categoriaService;
+    private final ValidationService validationService;
+    private final NotificationService notificationService;
+    private final ActivityLogService activityLogService;
 
-    @Autowired
-    public CategoriaController(CategoriaService categoriaService) {
+    public CategoriaController(ICrudService<CategoriaModel> categoriaService,
+                               ValidationService validationService,
+                               NotificationService notificationService,
+                               ActivityLogService activityLogService) {
         this.categoriaService = categoriaService;
+        this.validationService = validationService;
+        this.notificationService = notificationService;
+        this.activityLogService = activityLogService;
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllCategorias() {
-        return categoriaService.get();
+    @Override
+    protected ICrudService<CategoriaModel> getService() {
+        return categoriaService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getCategoriaById(@PathVariable Long id) {
-        return categoriaService.getOne(id);
-    }
-
-    @PostMapping
-    public ResponseEntity<?> createCategoria(@RequestBody CategoriaModel categoria) {
-        return categoriaService.post(categoria);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategoria(@RequestBody CategoriaModel categoria, @PathVariable Long id) {
-        return categoriaService.put(categoria, id);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategoria(@PathVariable Long id) {
-        return categoriaService.delete(id);
+    //Fabricación pura
+    public void createCategoria(CategoriaModel categoria) {
+        if (validationService.validateCategoria(categoria)) {
+            categoriaService.post(categoria);
+            activityLogService.logActivity("Categoría creada: " + categoria.getNombre());
+            notificationService.sendEmail("admin@example.com", "Nueva Categoría Creada", "Se ha creado la categoría: " + categoria.getNombre());
+        } else {
+            activityLogService.logActivity("Error al crear categoría: datos inválidos");
+        }
     }
 }
