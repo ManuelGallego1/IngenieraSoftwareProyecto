@@ -8,15 +8,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import compraya.api.models.CategoriaModel;
 import org.springframework.http.HttpStatus;
+import compraya.api.validator.ValidationService;
+import compraya.api.notification.NotificationService;
+import compraya.api.log.ActivityLogService;
 
 @Service
 public class CategoriaService implements ICrudService<CategoriaModel> {
 
     private final ICategoriaRepository categoriaRepository;
+    private final ValidationService validationService;
+    private final ActivityLogService activityLogService;
+    private final NotificationService notificationService;
     private static final Logger logger = LoggerFactory.getLogger(CategoriaService.class);
 
-    public CategoriaService(ICategoriaRepository categoriaRepository) {
+    public CategoriaService(ICategoriaRepository categoriaRepository,
+                            ValidationService validationService,
+                            ActivityLogService activityLogService,
+                            NotificationService notificationService) {
         this.categoriaRepository = categoriaRepository;
+        this.validationService = validationService;
+        this.activityLogService = activityLogService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -33,8 +45,15 @@ public class CategoriaService implements ICrudService<CategoriaModel> {
     @Override
     public ResponseEntity<?> post(CategoriaModel categoriaModel) {
         try {
-            CategoriaModel savedCategoria = categoriaRepository.save(categoriaModel);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedCategoria);
+            if (validationService.validateCategoria(categoriaModel)) {
+                CategoriaModel savedCategoria = categoriaRepository.save(categoriaModel);
+                activityLogService.logActivity("Categoría creada: " + categoriaModel.getNombre());
+                notificationService.sendEmail("admin@example.com", "Nueva Categoría Creada", "Se ha creado la categoría: " + categoriaModel.getNombre());
+                return ResponseEntity.status(HttpStatus.CREATED).body(savedCategoria);
+            } else {
+                activityLogService.logActivity("Error al crear categoría: datos inválidos");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"Datos inválidos.\"}");
+            }
         } catch (Exception e) {
             logger.error("Error al guardar la categoría", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
