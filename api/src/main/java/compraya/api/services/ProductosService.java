@@ -1,4 +1,5 @@
 package compraya.api.services;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,14 @@ import org.springframework.http.HttpStatus;
 import compraya.api.interfaces.IProductoService;
 import compraya.api.models.ProductoModel;
 import compraya.api.repositories.IProductoRepository;
+import compraya.api.factories.interfaces.IProductoFactory;
+import compraya.api.factories.DefaultProductoFactory;
 
 @Service
 public class ProductosService implements IProductoService {
 
     private final IProductoRepository productoRepository;
+    private final IProductoFactory productoFactory = new DefaultProductoFactory();
 
     @Autowired
     public ProductosService(IProductoRepository productoRepository) {
@@ -38,10 +42,17 @@ public class ProductosService implements IProductoService {
     @Override
     public ResponseEntity<?> post(ProductoModel producto) {
         try {
-            ProductoModel savedProducto = productoRepository.save(producto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedProducto);
+            ProductoModel newProducto = productoFactory.createProducto();
+            newProducto.setNombre(producto.getNombre());
+            newProducto.setDescripcion(producto.getDescripcion());
+            newProducto.setPrecio(producto.getPrecio());
+            newProducto.setImagen(producto.getImagen());
+            newProducto.setCategoria(producto.getCategoria());
+            productoRepository.save(newProducto);
+            return ResponseEntity.ok("{\"message\": \"Producto Creado.\"}");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al guardar el producto.\"}");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("{\"error\": \"Error al guardar el producto.\"}");
         }
     }
 
@@ -53,21 +64,22 @@ public class ProductosService implements IProductoService {
                 ProductoModel updatedProducto = productoRepository.save(producto);
                 return ResponseEntity.ok(updatedProducto);
             } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al actualizar el producto.\"}");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("{\"error\": \"Error al actualizar el producto.\"}");
             }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Producto no encontrado.\"}");
         }
     }
 
-    
     public ResponseEntity<?> delete(Long id) {
         if (productoRepository.existsById(id)) {
             try {
                 productoRepository.deleteById(id);
                 return ResponseEntity.ok("{\"message\": \"Producto eliminado.\"}");
             } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"Error al eliminar el producto.\"}");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("{\"error\": \"Error al eliminar el producto.\"}");
             }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Producto no encontrado.\"}");

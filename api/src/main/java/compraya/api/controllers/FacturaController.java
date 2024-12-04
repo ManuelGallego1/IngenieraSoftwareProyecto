@@ -2,12 +2,13 @@ package compraya.api.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import compraya.api.models.FacturaModel;
-import compraya.api.services.FacturaService;
+import compraya.api.mediator.interfaces.FacturaMediator;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,40 +19,40 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/facturas")
 public class FacturaController {
 
-    private final FacturaService FacturaService;
+    private final FacturaMediator facturaMediator;
 
     @Autowired
-    public FacturaController(FacturaService FacturaService) {
-        this.FacturaService = FacturaService;
+    public FacturaController(@Qualifier("facturaMediatorImpl") FacturaMediator facturaMediator) {
+        this.facturaMediator = facturaMediator;
     }
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<?> getfacturas() {
-        return FacturaService.get();
+    public ResponseEntity<?> getFacturas() {
+        return facturaMediator.getFacturas();
     }
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> createfactura(@RequestBody FacturaModel factura) {
-        return FacturaService.post(factura);
+    public ResponseEntity<?> createFactura(@RequestBody FacturaModel factura) {
+        return facturaMediator.createFactura(factura);
     }
-    
+
     @GetMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> getfacturaById(@PathVariable("id") Long id) {
-        return FacturaService.getOne(id);
+    public ResponseEntity<?> getFacturaById(@PathVariable("id") Long id) {
+        return facturaMediator.getFacturaById(id);
     }
 
     @PutMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> updatefactura(@RequestBody FacturaModel factura, @PathVariable("id") Long id) {
-        return FacturaService.put(factura, id);
+    public ResponseEntity<?> updateFactura(@RequestBody FacturaModel factura, @PathVariable("id") Long id) {
+        return facturaMediator.updateFactura(factura, id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public ResponseEntity<?> deletefactura(@PathVariable("id") Long id) {
-        return FacturaService.delete(id);
+    public ResponseEntity<?> deleteFactura(@PathVariable("id") Long id) {
+        return facturaMediator.deleteFactura(id);
     }
 }
