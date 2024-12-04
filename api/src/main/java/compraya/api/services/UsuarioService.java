@@ -15,11 +15,19 @@ import compraya.api.repositories.IUsuarioRepository;
 @Service
 public class UsuarioService implements IUsuarioService {
  // Singleton: Spring crea una única instancia de este servicio.
+    private static UsuarioService instancia;  // Instancia única de UsuarioService
     private final IUsuarioRepository usuarioRepository;
 
     @Autowired
     public UsuarioService(IUsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
+    }
+    
+    public static UsuarioService getInstancia(IUsuarioRepository usuarioRepository) {
+        if (instancia == null) {
+            instancia = new UsuarioService(usuarioRepository); // Crear la instancia solo si no existe
+        }
+        return instancia;
     }
 
     @Override
