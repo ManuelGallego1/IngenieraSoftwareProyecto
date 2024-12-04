@@ -1,6 +1,5 @@
 package compraya.api.mediator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import compraya.api.models.InformeModel;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,6 @@ import compraya.api.services.InformeService;
 public class InformeMediatorImpl implements InformeMediator {
     private final InformeService informeService;
 
-    @Autowired
     public InformeMediatorImpl(InformeService informeService) {
         this.informeService = informeService;
     }

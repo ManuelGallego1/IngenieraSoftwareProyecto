@@ -1,7 +1,6 @@
 package compraya.api.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +20,6 @@ public class InformeController {
 
     private final InformeMediator informeMediator;
 
-    @Autowired
     public InformeController(@Qualifier("informeMediatorImpl") InformeMediator informeMediator) {
         this.informeMediator = informeMediator;
     }

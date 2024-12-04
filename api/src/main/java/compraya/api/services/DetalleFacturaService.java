@@ -5,7 +5,6 @@ import compraya.api.interfaces.IDetalleFacturaService;
 import compraya.api.models.DetalleFacturaModel;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import compraya.api.repositories.IDetalleFacturaRepository;
@@ -18,7 +17,6 @@ public class DetalleFacturaService implements IDetalleFacturaService{
     private final IDetalleFacturaRepository detalleFacturaRepository;
     private static final Logger logger = LoggerFactory.getLogger(DetalleFacturaService.class);
 
-    @Autowired
     public DetalleFacturaService(IDetalleFacturaRepository detalleFacturaRepository) {
         this.detalleFacturaRepository = detalleFacturaRepository;
     }

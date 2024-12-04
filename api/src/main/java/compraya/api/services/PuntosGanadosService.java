@@ -5,7 +5,6 @@ import compraya.api.interfaces.IPuntosGanadosService;
 import compraya.api.models.PuntosGanadosModel;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import compraya.api.repositories.IPuntosGanadosRepository;
@@ -18,7 +17,6 @@ public class PuntosGanadosService implements IPuntosGanadosService {
     private final IPuntosGanadosRepository puntosGanadosRepository;
     private static final Logger logger = LoggerFactory.getLogger(PuntosGanadosService.class);
 
-    @Autowired
     public PuntosGanadosService(IPuntosGanadosRepository puntosGanadosRepository) {
         this.puntosGanadosRepository = puntosGanadosRepository;
     }

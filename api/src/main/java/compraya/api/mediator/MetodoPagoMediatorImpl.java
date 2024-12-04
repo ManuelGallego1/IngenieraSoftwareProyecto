@@ -2,7 +2,6 @@ package compraya.api.mediator;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
 import compraya.api.mediator.interfaces.MetodoPagoMediator;
 import compraya.api.models.MetodoPagoModel;
 import compraya.api.services.MetodoPagoService;
@@ -11,7 +10,6 @@ import compraya.api.services.MetodoPagoService;
 public class MetodoPagoMediatorImpl implements MetodoPagoMediator {
     private final MetodoPagoService metodoPagoService;
 
-    @Autowired
     public MetodoPagoMediatorImpl(MetodoPagoService metodoPagoService) {
         this.metodoPagoService = metodoPagoService;
     }

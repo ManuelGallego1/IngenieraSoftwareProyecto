@@ -5,7 +5,6 @@ import compraya.api.interfaces.IProductosCarritoService;
 import compraya.api.models.ProductosCarritoModel;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import compraya.api.repositories.IProductosCarritoRepository;
@@ -18,7 +17,6 @@ public class ProductoCarritoService implements IProductosCarritoService{
     private final IProductosCarritoRepository productosCarritoRepository;
     private static final Logger logger = LoggerFactory.getLogger(ProductoCarritoService.class);
 
-    @Autowired
     public ProductoCarritoService(IProductosCarritoRepository productosCarritoRepository) {
         this.productosCarritoRepository = productosCarritoRepository;
     }

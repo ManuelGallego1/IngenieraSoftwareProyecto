@@ -1,5 +1,4 @@
 package compraya.api.controllers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import compraya.api.models.PuntosGanadosModel;
@@ -11,7 +10,6 @@ public class PuntosGanadosController {
 
     private final PuntosGanadosService puntosGanadosService;
 
-    @Autowired
     public PuntosGanadosController(PuntosGanadosService puntosGanadosService) {
         this.puntosGanadosService = puntosGanadosService;
     }

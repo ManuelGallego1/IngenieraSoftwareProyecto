@@ -1,7 +1,6 @@
 package compraya.api.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ public class MetodoPagoController {
 
     private final MetodoPagoMediator metodoPagoMediator;
 
-    @Autowired
     public MetodoPagoController(@Qualifier("metodoPagoMediatorImpl") MetodoPagoMediator metodoPagoMediator) {
         this.metodoPagoMediator = metodoPagoMediator;
     }

@@ -1,10 +1,8 @@
 package compraya.api.controllers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import compraya.api.models.CategoriaModel;
 import compraya.api.services.CategoriaService;
-import java.util.ArrayList;
 
 
 @RestController
@@ -13,7 +11,6 @@ public class CategoriaController {
 
     private final CategoriaService categoriaService;
 
-    @Autowired
     public CategoriaController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
     }

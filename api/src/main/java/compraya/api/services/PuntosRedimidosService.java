@@ -6,7 +6,6 @@ import compraya.api.interfaces.IPuntosRedimidosService;
 import compraya.api.models.PuntosRedimidosModel;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import compraya.api.repositories.IPuntosRedimidosRepository;
@@ -19,7 +18,6 @@ public class PuntosRedimidosService implements IPuntosRedimidosService {
     private final IPuntosRedimidosRepository puntosRedimidosRepository;
     private static final Logger logger = LoggerFactory.getLogger(PuntosRedimidosService.class);
 
-    @Autowired
     public PuntosRedimidosService(IPuntosRedimidosRepository puntosRedimidosRepository) {
         this.puntosRedimidosRepository = puntosRedimidosRepository;
     }

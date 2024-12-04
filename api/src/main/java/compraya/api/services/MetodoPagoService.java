@@ -5,7 +5,6 @@ import compraya.api.interfaces.IMetodoPagoService;
 import compraya.api.models.MetodoPagoModel;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import compraya.api.repositories.IMetodoPagoRepository;
@@ -18,7 +17,6 @@ public class MetodoPagoService implements IMetodoPagoService{
     private final IMetodoPagoRepository metodoPagoRepository;
     private static final Logger logger = LoggerFactory.getLogger(MetodoPagoService.class);
 
-    @Autowired
     public MetodoPagoService(IMetodoPagoRepository metodoPagoRepository) {
         this.metodoPagoRepository = metodoPagoRepository;
     }

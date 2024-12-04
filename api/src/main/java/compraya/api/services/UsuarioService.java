@@ -2,12 +2,9 @@ package compraya.api.services;
 
 import java.util.ArrayList;
 import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-
 import compraya.api.interfaces.IUsuarioService;
 import compraya.api.models.UsuarioModel;
 import compraya.api.repositories.IUsuarioRepository;
@@ -20,7 +17,6 @@ public class UsuarioService implements IUsuarioService {
     private final IUsuarioRepository usuarioRepository;
     private final IUsuarioFactory usuarioFactory = new DefaultUsuarioFactory();
 
-    @Autowired
     public UsuarioService(IUsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }

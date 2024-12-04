@@ -1,7 +1,6 @@
 package compraya.api.services;
 import java.util.ArrayList;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ public class CategoriaService implements ICategoriaService {
 
     private final ICategoriaRepository categoriaRepository;
 
-    @Autowired
     public CategoriaService(ICategoriaRepository categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
     }
