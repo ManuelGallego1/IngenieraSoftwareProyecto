@@ -1,6 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:4000/usuarios"
-
+const API_URL = "http://localhost:4000/usuarios";
 
 export const getAllUsuarios = async () => {
     try {

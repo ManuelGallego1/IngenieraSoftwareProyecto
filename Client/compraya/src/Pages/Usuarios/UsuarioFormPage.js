@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { createUsuario, updateUsuario, getUsuarioById } from "../../Services/Usuarios/UsuarioService";
+import HeaderComponent from "../../Componets/HeaderComponet"; // Adjust the path as necessary
 
 const UsuarioFormPage = ({ mode }) => {
     const { id } = useParams();
@@ -65,20 +66,68 @@ const UsuarioFormPage = ({ mode }) => {
     };
 
     return (
-        <div>
-            <h1>{mode === "edit" ? "Editar Usuario" : "Crear Usuario"}</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="nombre" placeholder="Nombre" value={usuario.nombre} onChange={handleChange} />
-                <input type="text" name="identificacion" placeholder="Identificación" value={usuario.identificacion} onChange={handleChange} />
-                <input type="email" name="email" placeholder="Email" value={usuario.email} onChange={handleChange} />
-                <input type="password" name="contrasena" placeholder="Contraseña" value={usuario.contrasena} onChange={handleChange} />
-                <input type="text" name="celular" placeholder="Celular" value={usuario.celular} onChange={handleChange} />
-                <select name="rol" value={usuario.rol} onChange={handleChange}>
-                    <option value="cliente">Cliente</option>
-                    <option value="admin">Admin</option>
-                </select>
-                <button type="submit">{mode === "edit" ? "Actualizar" : "Crear"}</button>
-            </form>
+        <div className="flex">
+            <HeaderComponent />
+            <div className="ml-64 p-8 w-full">
+                <h1 className="text-2xl font-bold mb-4">{mode === "edit" ? "Editar Usuario" : "Crear Usuario"}</h1>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                        type="text"
+                        name="nombre"
+                        placeholder="Nombre"
+                        value={usuario.nombre}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="text"
+                        name="identificacion"
+                        placeholder="Identificación"
+                        value={usuario.identificacion}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={usuario.email}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="password"
+                        name="contrasena"
+                        placeholder="Contraseña"
+                        value={usuario.contrasena}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"
+                    />
+                    <input
+                        type="text"
+                        name="celular"
+                        placeholder="Celular"
+                        value={usuario.celular}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"
+                    />
+                    <select
+                        name="rol"
+                        value={usuario.rol}
+                        onChange={handleChange}
+                        className="w-full p-2 border border-gray-300 rounded"
+                    >
+                        <option value="cliente">Cliente</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <button
+                        type="submit"
+                        className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                        {mode === "edit" ? "Actualizar" : "Crear"}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };

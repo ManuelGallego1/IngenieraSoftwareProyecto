@@ -38,10 +38,22 @@ const UsuarioPage = () => {
   };
 
   return (
-    <div>
-      <h1>Usuarios</h1>
-      <button onClick={() => navigate("/usuarios/crear")}>Crear Usuario</button>
-      <ListaUsuariosComponets usuarios={usuarios} onEdit={handleEdit} onDelete={handleDelete} />
+    <div className="flex min-h-screen bg-gray-100">
+      <aside className="w-64 bg-gray-800 text-white">
+        {/* Aquí iría el contenido de la slidebar */}
+      </aside>
+      <main className="flex-1 p-4">
+        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+          <h1 className="text-2xl font-bold mb-4">Usuarios</h1>
+          <button
+            onClick={() => navigate("/usuarios/crear")}
+            className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Crear Usuario
+          </button>
+          <ListaUsuariosComponets usuarios={usuarios} onEdit={handleEdit} onDelete={handleDelete} />
+        </div>
+      </main>
     </div>
   );
 };
