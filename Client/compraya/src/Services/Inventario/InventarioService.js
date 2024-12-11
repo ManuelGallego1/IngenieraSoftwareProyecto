@@ -3,9 +3,14 @@ const API_URL = 'http://localhost:4000/inventario';
 
 export const registrarSalida = async (id, referenciaCompra, salida) => {
     try {
-        const response = await axios.post(`${API_URL}/${id}/salida`, {
-            referenciaCompra,
-            salida
+        const formData = new FormData();
+        formData.append('referenciaCompra', referenciaCompra);
+        formData.append('salida', salida);
+
+        const response = await axios.post(`${API_URL}/${id}/salida`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
         console.log(response.data);
     } catch (error) {
@@ -16,9 +21,14 @@ export const registrarSalida = async (id, referenciaCompra, salida) => {
 
 export const registrarEntrada = async (id, referenciaCompra, entrada) => {
     try {
-        const response = await axios.post(`${API_URL}/${id}/entrada`, {
-            referenciaCompra,
-            entrada
+        const formData = new FormData();
+        formData.append('referenciaCompra', referenciaCompra);
+        formData.append('entrada', entrada);
+
+        const response = await axios.post(`${API_URL}/${id}/entrada`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
         console.log(response.data);
     } catch (error) {

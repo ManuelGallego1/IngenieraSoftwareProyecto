@@ -12,6 +12,10 @@ const GenerarXML = ({ factura, detalles, onBack }) => {
     }
   };
 
+  const home = () => {
+    window.location.href = "/ventas";
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <aside className="w-64 bg-gray-800 text-white">
@@ -26,12 +30,12 @@ const GenerarXML = ({ factura, detalles, onBack }) => {
           >
             Generar XML
           </button>
-          <button
-            onClick={onBack}
-            className="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Atrás
-          </button>
+        <button
+          onClick={home}
+          className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-green-600"
+        >
+          Salir
+        </button>
         </div>
       </main>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createFactura } from '../../Services/Facturas/FacturaService';
 import { getAllMetodosPago } from '../../Services/MetodoPago/MetodoPagoService';
 import { getClientes } from '../../Services/Usuarios/UsuarioService';
+import { registrarSalida, getInventario } from '../../Services/Inventario/InventarioService';
 
 const GenerarFactura = ({ productos, onNext, onBack }) => {
     const [metodosPago, setMetodosPago] = useState([]);
@@ -57,6 +58,17 @@ const GenerarFactura = ({ productos, onNext, onBack }) => {
         };
 
         try {
+            // Registrar salida del inventario
+            for (const producto of productos) {
+                const inventario = await getInventario(producto.id);
+                if (inventario.inventario < producto.cantidad) {
+                    alert(`No hay suficiente stock para el producto ${producto.nombre}`);
+                    return;
+                }
+                await registrarSalida(producto.id, facturaData.codigo, producto.cantidad);
+            }
+
+            // Crear la factura
             const factura = await createFactura(facturaData);
             onNext(factura);
         } catch (error) {

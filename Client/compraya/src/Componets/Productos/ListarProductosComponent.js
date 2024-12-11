@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getInventario } from '../../Services/Inventario/InventarioService';
 
-const ListarProductosComponent = ({ productos = [], onEdit, onDelete }) => {
+const ListarProductosComponent = ({ productos = [], onEdit, onDelete, onEntrada }) => {
     const [inventarios, setInventarios] = useState({});
 
     useEffect(() => {
@@ -40,6 +40,7 @@ const ListarProductosComponent = ({ productos = [], onEdit, onDelete }) => {
                         <div className="flex space-x-2">
                             <button onClick={() => onEdit(producto.id)} className="bg-blue-500 text-white px-4 py-2 rounded">Editar</button>
                             <button onClick={() => onDelete(producto.id)} className="bg-red-500 text-white px-4 py-2 rounded">Eliminar</button>
+                            <button onClick={() => onEntrada(producto)} className="bg-green-500 text-white px-4 py-2 rounded">Entrada</button>
                         </div>
                     </li>
                 ))}
