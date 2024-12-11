@@ -108,7 +108,7 @@ public class FacturaService implements IFacturaService {
             rootElement.appendChild(createElement(doc, "TotalImpuestos", String.valueOf(factura.getTotalImpuestos())));
             rootElement.appendChild(createElement(doc, "Total", String.valueOf(factura.getTotal())));
             rootElement.appendChild(createElement(doc, "Estado", factura.getEstado()));
-            rootElement.appendChild(createElement(doc, "Cliente", factura.getCliente().getNombre()));
+            rootElement.appendChild(createElement(doc, "Cliente", factura.getCliente().getIdentificacion()));
             rootElement.appendChild(createElement(doc, "MetodoPago", factura.getMetodoPago().getMetodo()));
 
             // Transform the document to a string

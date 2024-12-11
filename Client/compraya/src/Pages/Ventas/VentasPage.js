@@ -32,7 +32,7 @@ const VentasPage = () => {
         <div className="ventas-page">
             {step === 1 && <SeleccionarProductos onNext={handleProductosSeleccionados} />}
             {step === 2 && <GenerarFactura productos={productosSeleccionados} onNext={handleFacturaGenerada} onBack={prevStep} />}
-            {step === 3 && <DetalleFactura factura={factura} onNext={handleDetallesFactura} onBack={prevStep} />}
+            {step === 3 && <DetalleFactura factura={factura} productos={productosSeleccionados} onNext={handleDetallesFactura} onBack={prevStep} />}
             {step === 4 && <GenerarXML factura={factura} detalles={detallesFactura} onBack={prevStep} />}
         </div>
     );
