@@ -38,4 +38,9 @@ public class FacturaMediatorImpl implements FacturaMediator {
     public ResponseEntity<?> deleteFactura(Long id) {
         return facturaService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<?> generateFacturaXML(Long id) {
+        return facturaService.generateFacturaXML(id);
+    }
 }

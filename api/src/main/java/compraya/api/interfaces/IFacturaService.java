@@ -10,5 +10,6 @@ public interface IFacturaService {
     ResponseEntity<?> post(FacturaModel factura);
     ResponseEntity<?> put(FacturaModel factura, Long id);
     ResponseEntity<?> delete(Long id);
+    ResponseEntity<?> generateFacturaXML(Long id);
 }
 

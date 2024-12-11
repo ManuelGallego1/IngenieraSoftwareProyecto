@@ -1,6 +1,6 @@
 package compraya.api.services;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,12 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public ResponseEntity<?> get() {
-        return ResponseEntity.ok((ArrayList<UsuarioModel>) usuarioRepository.findAll());
+        return ResponseEntity.ok(usuarioRepository.findAll());
+    }
+
+    public ResponseEntity<?> getByRol(String rol) {
+        List<UsuarioModel> usuarios = usuarioRepository.findByRol(rol);
+        return ResponseEntity.ok(usuarios);
     }
 
     @Override

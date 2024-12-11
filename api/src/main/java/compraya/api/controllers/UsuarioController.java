@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
@@ -25,7 +26,10 @@ public class UsuarioController {
 
     @GetMapping
     @ResponseBody
-    public ResponseEntity<?> getUsuarios() {
+    public ResponseEntity<?> getUsuarios(@RequestParam(required = false) String rol) {
+        if (rol != null) {
+            return usuarioService.getByRol(rol);
+        }
         return usuarioService.get();
     }
 

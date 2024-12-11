@@ -53,4 +53,10 @@ public class FacturaController {
     public ResponseEntity<?> deleteFactura(@PathVariable("id") Long id) {
         return facturaMediator.deleteFactura(id);
     }
+
+    @GetMapping("/{id}/xml")
+    @ResponseBody
+    public ResponseEntity<?> generateFacturaXML(@PathVariable("id") Long id) {
+        return facturaMediator.generateFacturaXML(id);
+    }
 }

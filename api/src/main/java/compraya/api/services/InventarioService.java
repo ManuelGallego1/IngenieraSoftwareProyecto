@@ -3,7 +3,7 @@ import compraya.api.models.InventarioModel;
 import compraya.api.models.ProductoModel;
 import compraya.api.repositories.IInventarioRepository;
 import compraya.api.repositories.IProductoRepository;
-import compraya.api.interfaces.ICrudService;
+import compraya.api.interfaces.IInventarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InventarioService implements ICrudService<InventarioModel> {
+public class InventarioService implements IInventarioService {
 
     private final IInventarioRepository inventarioRepository;
     @Autowired
@@ -75,8 +75,8 @@ public class InventarioService implements ICrudService<InventarioModel> {
                         .body("{\"error\": \"Inventario no encontrado.\"}"));
     }
 
-    public ResponseEntity<?> registrarEntrada(Long productoId, int entrada, String referenciaCompra) {
-        ProductoModel producto = productoRepository.findById(productoId).orElse(null);
+    public ResponseEntity<?> registrarEntrada(Long id, int entrada, String referenciaCompra) {
+        ProductoModel producto = productoRepository.findById(id).orElse(null);
         if (producto == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Producto no encontrado.\"}");
         }
@@ -85,6 +85,7 @@ public class InventarioService implements ICrudService<InventarioModel> {
         InventarioModel inventario = new InventarioModel();
         inventario.setProducto(producto);
         inventario.setEntrada(entrada);
+        inventario.setSalida(0);
         inventario.setReferenciaCompra(referenciaCompra);
 
         inventarioRepository.save(inventario);
@@ -92,15 +93,15 @@ public class InventarioService implements ICrudService<InventarioModel> {
     }
 
     // Registrar salida de productos del inventario
-    public ResponseEntity<?> registrarSalida(Long productoId, int salida, String referenciaCompra) {
-        ProductoModel producto = productoRepository.findById(productoId).orElse(null);
+    public ResponseEntity<?> registrarSalida(Long id, int salida, String referenciaCompra) {
+        ProductoModel producto = productoRepository.findById(id).orElse(null);
         if (producto == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"Producto no encontrado.\"}");
         }
 
         // Validar que existan suficientes entradas para la salida
-        int entradasTotales = inventarioRepository.sumEntradasByProductoId(productoId);
-        int salidasTotales = inventarioRepository.sumSalidasByProductoId(productoId);
+        int entradasTotales = inventarioRepository.sumEntradasByProductoId(id);
+        int salidasTotales = inventarioRepository.sumSalidasByProductoId(id);
         int inventarioActual = entradasTotales - salidasTotales;
 
         if (inventarioActual < salida) {
@@ -112,6 +113,7 @@ public class InventarioService implements ICrudService<InventarioModel> {
         InventarioModel inventario = new InventarioModel();
         inventario.setProducto(producto);
         inventario.setSalida(salida);
+        inventario.setEntrada(0);
         inventario.setReferenciaCompra(referenciaCompra);
 
         inventarioRepository.save(inventario);

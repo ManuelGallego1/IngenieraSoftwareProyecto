@@ -9,4 +9,5 @@ public interface FacturaMediator {
     ResponseEntity<?> getFacturaById(Long id);
     ResponseEntity<?> updateFactura(FacturaModel factura, Long id);
     ResponseEntity<?> deleteFactura(Long id);
+    ResponseEntity<?> generateFacturaXML(Long id);
 }

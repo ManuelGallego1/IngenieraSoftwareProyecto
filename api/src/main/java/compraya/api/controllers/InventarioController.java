@@ -1,48 +1,57 @@
 package compraya.api.controllers;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import compraya.api.models.InventarioModel;
-import compraya.api.services.InventarioService;
-
-import compraya.api.interfaces.ICrudService;
+import compraya.api.interfaces.IInventarioService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/inventario")
-public class InventarioController extends BaseController<InventarioModel> {
+public class InventarioController {
 
-    private final ICrudService<InventarioModel> inventarioService;
+    private final IInventarioService inventarioService;
 
-    public InventarioController(ICrudService<InventarioModel> inventarioService) {
+    public InventarioController(IInventarioService inventarioService) {
         this.inventarioService = inventarioService;
     }
 
-    @Override
-    protected ICrudService<InventarioModel> getService() {
-        return inventarioService;
+    @GetMapping
+    public ResponseEntity<?> get() {
+        return inventarioService.get();
     }
 
-    @PostMapping("/entrada")
-    public ResponseEntity<?> registrarEntrada(@RequestParam Long productoId, 
-                                              @RequestParam int entrada, 
-                                              @RequestParam String referenciaCompra) {
-        return ((InventarioService) inventarioService).registrarEntrada(productoId, entrada, referenciaCompra);
+    @PostMapping
+    public ResponseEntity<?> post(@RequestBody InventarioModel inventarioModel) {
+        return inventarioService.post(inventarioModel);
     }
 
-    @PostMapping("/salida")
-    public ResponseEntity<?> registrarSalida(@RequestParam Long productoId, 
-                                             @RequestParam int salida, 
-                                             @RequestParam String referenciaCompra) {
-        return ((InventarioService) inventarioService).registrarSalida(productoId, salida, referenciaCompra);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOne(@PathVariable Long id) {
+        return inventarioService.getOne(id);
     }
 
-    @GetMapping("/{productoId}")
+    @PutMapping("/{id}")
+    public ResponseEntity<?> put(@RequestBody InventarioModel inventarioModel, @PathVariable Long id) {
+        return inventarioService.put(inventarioModel, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        return inventarioService.delete(id);
+    }
+
+    @PostMapping("/{id}/entrada")
+    public ResponseEntity<?> registrarEntrada(@PathVariable Long id, @RequestParam int entrada, @RequestParam String referenciaCompra) {
+        return inventarioService.registrarEntrada(id, entrada, referenciaCompra);
+    }
+
+    @PostMapping("/{id}/salida")
+    public ResponseEntity<?> registrarSalida(@PathVariable Long id, @RequestParam int salida, @RequestParam String referenciaCompra) {
+        return inventarioService.registrarSalida(id, salida, referenciaCompra);
+    }
+
+    @GetMapping("/{productoId}/total")
     public ResponseEntity<?> obtenerInventario(@PathVariable Long productoId) {
-        return ((InventarioService) inventarioService).obtenerInventario(productoId);
+        return inventarioService.obtenerInventario(productoId);
     }
 }

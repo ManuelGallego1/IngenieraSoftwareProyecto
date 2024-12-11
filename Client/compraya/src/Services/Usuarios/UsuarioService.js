@@ -50,3 +50,13 @@ export const deleteUsuario = async (id) => {
         throw error;
     }
 };
+
+export const getClientes = async () => {
+    try {
+        const response = await axios.get(`${API_URL}?rol=cliente`);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener los clientes:", error);
+        throw error;
+    }
+};

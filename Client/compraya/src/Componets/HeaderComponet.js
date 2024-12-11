@@ -16,6 +16,9 @@ const HeaderComponent = () => {
                     <li className="mb-6">
                         <Link to="/productos" className="text-lg font-semibold hover:text-gray-400">Productos</Link>
                     </li>
+                    <li className="mb-6">
+                        <Link to="/ventas" className="text-lg font-semibold hover:text-gray-400">Ventas</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

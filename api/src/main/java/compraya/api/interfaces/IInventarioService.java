@@ -10,4 +10,7 @@ public interface IInventarioService {
     ResponseEntity<?> post(InventarioModel inventario);
     ResponseEntity<?> put(InventarioModel inventario, Long id);
     ResponseEntity<?> delete(Long id);
+    ResponseEntity<?> registrarEntrada(Long id, int entrada, String referenciaCompra);
+    ResponseEntity<?> registrarSalida(Long id, int salida, String referenciaVenta);
+    ResponseEntity<?> obtenerInventario(Long id);
 }
